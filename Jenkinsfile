@@ -13,14 +13,9 @@ pipeline {
                     // Clone the repository only if the directory doesn't exist
                     if (!dirExists) {
                         git clone 'https://github.com/chezm89/PythonTerminal_Calculator.git'
+                        git pull
                     }
                 }
-            }
-        }
-
-        stage('Update') {
-            steps {
-                git pull
             }
         }
 
