@@ -18,8 +18,8 @@ pipeline {
             }
         }
 
-        stage {
-            steps('Update') {
+        stage('Update') {
+            steps {
                 sh ' git pull'
             }
         }
