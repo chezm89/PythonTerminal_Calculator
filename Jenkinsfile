@@ -20,7 +20,7 @@ pipeline {
 
         stage('Update') {
             steps {
-                sh ' git pull'
+                git pull
             }
         }
 
