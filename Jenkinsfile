@@ -14,10 +14,13 @@ pipeline {
                     if (!dirExists) {
                         git clone 'https://github.com/chezm89/PythonTerminal_Calculator.git'
                     }
-                    else {
-                        git pull
-                    }
                 }
+            }
+        }
+
+        stage {
+            steps('Update') {
+                sh ' git pull'
             }
         }
 
