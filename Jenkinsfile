@@ -37,7 +37,7 @@ pipeline {
             steps {
                 // Run Python unit tests
                 script {
-                    sh 'python3 -m tests.test_calculator'
+                    sh 'python3 -m test_calculator'
                 }
             }
         }
