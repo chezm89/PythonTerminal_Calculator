@@ -1,0 +1,8 @@
+stage('Install Dependencies') {
+            steps {
+                // Install project dependencies
+                script {
+                    sh 'pip install -r requirements.txt'
+                }
+            }
+        }

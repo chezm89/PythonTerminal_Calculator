@@ -4,8 +4,17 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Check out the code from your version control system
-                checkout scm
+
+                 script {
+                    // Check if the directory already exists
+                    def repoDir = 'PythonTerminal_Calculator'
+                    def dirExists = fileExists(repoDir)
+
+                    // Clone the repository only if the directory doesn't exist
+                    if (!dirExists) {
+                        git clone 'https://github.com/chezm89/PythonTerminal_Calculator.git'
+                    }
+                }
             }
         }
 
@@ -13,18 +22,13 @@ pipeline {
             steps {
                 // Create and activate virtual environment
                 script {
-                    sh 'python3 -m venv venv'
-                    sh 'source venv/bin/activate'
+                    sh '''
+                        #!/bin/bash
+                        python3 -m venv venv
+                        . venv/bin/activate
+                    '''
                 }
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                // Install project dependencies
-                script {
-                    sh 'pip install -r requirements.txt'
-                }
+                
             }
         }
 
@@ -32,13 +36,13 @@ pipeline {
             steps {
                 // Run Python unit tests
                 script {
-                    sh 'python test_calculator.py'
+                    sh 'python3 -m tests.test_calculator'
                 }
             }
         }
 
-        post {
-        always {
+        stage('Deactive Environment') {
+            steps {
             // Clean up: deactivate virtual environment
             script {
                 sh 'deactivate'
