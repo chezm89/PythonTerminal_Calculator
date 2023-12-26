@@ -32,12 +32,29 @@ pipeline {
                 
             }
         }
+        
+        stage('Change Dir') {
+            steps {
+                script {
+                    sh 'cd /var/lib/jenkins/workspace/PythonTerminal_Calculator'
+                }
+            }
+        }
+        
+        stage('Print Python Path') {
+            steps {
+                script {
+                    sh 'pwd'
+                    sh 'python3 -c "import sys; print(sys.path)"'
+                }
+            }
+        }
 
         stage('Run Tests') {
             steps {
                 // Run Python unit tests
                 script {
-                    sh 'python3 -m test_calculator'
+                    sh 'python3 -m unittest test_calculator.py'
                 }
             }
         }
